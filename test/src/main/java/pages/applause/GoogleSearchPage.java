@@ -14,7 +14,7 @@ import static test.applause.BaseTest.log;
 public class GoogleSearchPage extends LoadableComponent<GoogleSearchPage> {
 
 	private final WebDriver driver;
-	@FindBy(name="btnK")
+	@FindBy(name = "btnK")
 	private WebElement searchBtn;
 	@FindBy(id = "lst-ib")
 	private WebElement searchBox;
@@ -26,22 +26,26 @@ public class GoogleSearchPage extends LoadableComponent<GoogleSearchPage> {
 	public GoogleSearchPage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
+		log("Open Google main page");
 	}
 
 	@Override
 	protected void isLoaded() throws Error {
 		String url = driver.getCurrentUrl();
-		assertTrue(url.contains("google"));
-		assertTrue(searchBtn.isDisplayed());
-		assertTrue(searchBox.isDisplayed());
-		assertTrue(appsGridIcon.isDisplayed());
+		assertTrue(url.contains("google"), "URL invalid");
+		assertTrue(searchBtn.isDisplayed(), "Search button not displayed");
+		assertTrue(searchBox.isDisplayed(), "Search box not displayed");
+		assertTrue(appsGridIcon.isDisplayed(), "Apps grid icon not displayed");
 	}
 
 	@Override
 	protected void load() {
-		driver.get("http://google.com");
+		driver.get("http://www.google.com/ncr");
 	}
 
+	/**
+	 * Click on Apps grid icon (upper right corner)
+	 */
 	public void clickAppsIcon() {
 		log("Click on Apps icon");
 		appsGridIcon.click();
@@ -49,8 +53,12 @@ public class GoogleSearchPage extends LoadableComponent<GoogleSearchPage> {
 				.visibilityOf(googlePlayLink));
 	}
 
-	public void clickGooglePlayLink() {
+	/**
+	 * Open Google Play page by clicking its icon in Apps contextual menu
+	 */
+	public GooglePlayPage clickGooglePlayLink() {
 		log("Click on Google Play icon");
 		googlePlayLink.click();
+		return new GooglePlayPage(driver);
 	}
 }
