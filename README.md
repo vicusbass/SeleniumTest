@@ -9,6 +9,7 @@ Some notes:
 - the browser is configured in config.properties, I only configured Firefox, I did this just to show an easy approach
 - I had to use "http://www.google.com/ncr" as start page, in order to aviod getting localized Google search page
 - rating in stars is just an aproximation, I preferred to use the exact rating in numbers (aslo printed in console) and round it rather than create an algorithm based on the stars div CSS width
+- I had to add a small hack in the tearDown method due to an issue in Selenium/Firefox which sometimes triggers a plugincontainer.exe error
 
 I would gladly discuss any issue you might encountered while running the test (e.g. if your hosts file contains some specific configuration, the project needs some changes, etc.), my projects configuration are usually more complex, for CI and other reasons, this is just a short demo.
 

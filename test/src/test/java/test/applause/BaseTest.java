@@ -6,7 +6,6 @@ import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -42,7 +41,14 @@ public class BaseTest {
 
 	@AfterMethod
 	public void tearDownSuite() {
-		driver.quit();
+		driver.close();
+		// hack needed because of existing bug in Selenium/Firefox which might
+		// trigger a plugincontainer error
+		try {
+			Thread.sleep(3000);
+			driver.quit();
+		} catch (Exception e) {
+		}
 	}
 
 	public static void log(String s) {
